@@ -32,7 +32,6 @@ def plot_kernel(x, k, title):
     plt.tight_layout()
     plt.show(block=False)
 
-
 # Plot lambda(x)
 def plot_lambda(x, lambda_func, title):
     y = lambda_func(x)

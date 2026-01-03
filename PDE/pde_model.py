@@ -24,7 +24,7 @@ class PDE:
         else:
             self.u0t_func = u0t_func
 
-        # Right boundary u(1,t)
+        # Right boundary u(1,t) = U(t)
         if u1t_func is None:
             def u1t_default(t): return 0
             self.u1t_func = u1t_default
