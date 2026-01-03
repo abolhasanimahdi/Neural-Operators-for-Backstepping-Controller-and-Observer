@@ -1,7 +1,7 @@
 import numpy as np
 from PDE.pde_model import PDE
 from PDE.pde_solver import solve_pde
-from PDE.pde_kernel import compute_kernel
+from PDE.pde_kernel import solve_kernel
 from plot import plot_pde, plot_kernel, plot_lambda
 import matplotlib.pyplot as plt
 
@@ -14,8 +14,8 @@ pde2 = PDE(lambda_func=lambda_func2)
 u1 = solve_pde(pde1)
 u2 = solve_pde(pde2)
 # Compute kernel k(x,y)
-k1 = compute_kernel(pde1)
-k2 = compute_kernel(pde2)
+k1 = solve_kernel(pde1)
+k2 = solve_kernel(pde2)
 # Time grid
 t_grid1 = np.linspace(0, pde1.T, pde1.Nt)
 t_grid2 = np.linspace(0, pde2.T, pde2.Nt)

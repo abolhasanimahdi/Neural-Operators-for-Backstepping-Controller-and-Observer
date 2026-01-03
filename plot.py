@@ -19,11 +19,12 @@ def plot_kernel(x, k, title):
     X, Y = np.meshgrid(x, x)
     fig = plt.figure(figsize=(7, 5))
     ax = fig.add_subplot(111, projection='3d')
-    ax.plot_surface(X, Y, k)
-    ax.set_xlabel('x')
-    ax.set_ylabel('y')
+    surf = ax.plot_surface(Y, X, k)  # optional colormap
+    ax.set_xlabel('y')
+    ax.set_ylabel('x')
     ax.set_zlabel('k(x,y)')
     ax.set_title(title)
+    ax.set_ylim(1, 0)  # reverse x-axis
     plt.tight_layout()
     plt.show(block=False)
 

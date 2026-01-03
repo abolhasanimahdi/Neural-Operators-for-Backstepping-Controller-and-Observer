@@ -1,26 +1,19 @@
 import numpy as np
 
-def compute_kernel(pde):
+def solve_kernel(pde):
     Nx = pde.Nx
     h = pde.h
+    x = pde.x
     lam = pde.lambda_func(pde.x)
-    # Solution array
     k = np.zeros((Nx, Nx))
 
-    for i in range(1, Nx):
-        k[i, i] = k[i - 1, i - 1] + (h**2 / 2) * lam[i]
+    k[1, 1] = -(lam[0] + lam[1]) * h / 4
 
-    for i in range(2, Nx):
+    for i in range(1, Nx - 1):
+        k[i + 1, 0] = 0
+        k[i + 1, i + 1] = k[i, i] - h / 4 * (lam[i - 1] + lam[i])
+        k[i + 1, i] = k[i, i] - h / 2 * lam[i]
+
         for j in range(1, i):
-            jp = j + 1 if j + 1 < Nx else j
-            jm = j - 1 if j - 1 >= 0 else j
-            k[i, j] = (
-                -k[i - 2, j]
-                + k[i - 1, jp]
-                + k[i - 1, jm]
-                + (h**2 / 2) * lam[j] * (k[i - 1, jp] + k[i - 1, jm])
-            )
-
-    # Boundary on y=0
-    k[:, 0] = 0
+            k[i + 1, j] = -k[i - 1, j] + k[i, j + 1] + k[i, j - 1] + lam[j] * h ** 2 * (k[i, j + 1] + k[i, j - 1]) / 2
     return k
