@@ -1,7 +1,7 @@
 import numpy as np
 
 class PDE:
-    def __init__(self, N=50, T=1, dt=1e-5, lambda_func=None, u0t_func=None, u1t_func=None, ux0_func=None):
+    def __init__(self, N=100, T=1, dt=1e-5, lambda_func=None, u0t_func=None, u1t_func=None, ux0_func=None):
         self.N = N
         self.Nx = N + 1
         self.T = T
