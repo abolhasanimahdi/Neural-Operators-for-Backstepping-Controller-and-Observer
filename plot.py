@@ -26,3 +26,16 @@ def plot_kernel(x, k, title):
     ax.set_title(title)
     plt.tight_layout()
     plt.show(block=False)
+
+
+# Plot lambda(x)
+def plot_lambda(x, lambda_func, title):
+    y = lambda_func(x)
+    plt.figure(figsize=(7, 5))
+    plt.plot(x, y)
+    plt.xlabel('x')
+    plt.ylabel(r'$\lambda(x)$')
+    plt.title(title)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show(block=False)
