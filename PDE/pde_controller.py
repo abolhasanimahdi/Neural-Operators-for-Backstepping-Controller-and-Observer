@@ -19,7 +19,5 @@ def solve_kernel(pde):
 
     return k
 
-def compute_control(k, current_u, h):
-    integrand = k[-1, :] * current_u
-    total_sum = 0.5 * integrand[0] + np.sum(integrand[1:-1]) + 0.5 * integrand[-1]
-    return h * total_sum
+def compute_control(k, u, h):
+    return h * np.dot(k[-1,:], u)  # simpler, slightly faster
