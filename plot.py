@@ -32,7 +32,7 @@ def plot_kernel(x, k, title):
     ax.set_ylim(1, 0)
     plt.tight_layout()
 
-# Plot lambda(x)
+# Plot λ(x)
 def plot_lambda(x, lambda_func, title):
     y = lambda_func(x)
     plt.figure(figsize=(7, 5))
