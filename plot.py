@@ -24,7 +24,7 @@ def plot_kernel(x, k, title):
     X, Y = np.meshgrid(x, x)
     fig = plt.figure(figsize=(7, 5))
     ax = fig.add_subplot(111, projection='3d')
-    surf = ax.plot_surface(Y, X, k)  # optional colormap
+    ax.plot_surface(Y, X, k)
     ax.set_xlabel('y')
     ax.set_ylabel('x')
     ax.set_zlabel('k(x,y)')
@@ -40,17 +40,6 @@ def plot_lambda(x, lambda_func, title):
     plt.plot(x, y)
     plt.xlabel('x')
     plt.ylabel(r'$\lambda(x)$')
-    plt.title(title)
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show(block=False)
-
-# Plot controller U(t)
-def plot_controller(t, U, title):
-    plt.figure(figsize=(7, 5))
-    plt.plot(t, U)
-    plt.xlabel('t')
-    plt.ylabel('U(t)')
     plt.title(title)
     plt.grid(True)
     plt.tight_layout()

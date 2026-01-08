@@ -1,31 +1,29 @@
-# pde_solver.py
 import numpy as np
+from PDE.pde_controller import compute_control
 
-def solve_pde(pde):
-    Nx = pde.Nx
-    Nt = pde.Nt
-    h = pde.h
-    dt = pde.dt
-    lam = pde.lambda_func(pde.x)
-    u0t = pde.u0t_func
-    u1t = pde.u1t_func
-    # Solution array
+def solve_pde(pde, k=None):
+    Nx, Nt = pde.Nx, pde.Nt
+    h, dt = pde.h, pde.dt
+    x = pde.x
+    lam = pde.lambda_func(x)
     u = np.zeros((Nt, Nx))
+    u[0, :] = pde.ux0_func(x)
 
-    # Initial condition u(x,0)
-    u[0, :] = pde.ux0_func()
+    if k is not None:
+        u0_control = compute_control(k, u[0, :], h)
+        u[0, -1] = u0_control
+    else:
+        u[0, -1] = 0
 
     for n in range(Nt - 1):
-        for i in range(1, Nx - 1):
-            u[n + 1, i] = (
-                u[n, i] + dt * (
-                    (u[n, i + 1] - 2 * u[n, i] + u[n, i - 1]) / h**2
-                    + lam[i] * u[n, i]
-                )
-            )
+        u[n + 1, 1:-1] = u[n, 1:-1] + dt * (
+                (u[n, 2:] - 2 * u[n, 1:-1] + u[n, :-2]) / h ** 2
+                + lam[1:-1] * u[n, 1:-1]
+        )
+        u[n + 1, 0] = pde.u0t_func((n + 1) * dt)
 
-        # Boundary conditions
-        t_next = (n + 1) * dt
-        u[n + 1, 0] = u0t(t_next)   # Left boundary
-        u[n + 1, -1] = u1t(t_next)  # Right boundary
+        if k is not None:
+            u[n + 1, -1] = compute_control(k, u[n + 1, :], h)
+        else:
+            u[n + 1, -1] = 0
     return u

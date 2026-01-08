@@ -34,7 +34,7 @@ class PDE:
 
         # Initial condition u(x,0)
         if ux0_func is None:
-            def ux0_default(): return np.zeros(self.Nx) + 10
+            def ux0_default(x): return 10
             self.ux0_func = ux0_default
         else:
             self.ux0_func = ux0_func
