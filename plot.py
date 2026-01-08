@@ -17,7 +17,6 @@ def plot_pde(x, t, u, title):
     ax.view_init(elev=10, azim=100)
     ax.set_title(title)
     plt.tight_layout()
-    plt.show(block=False)
 
 # Plot kernel solution k(x,y)
 def plot_kernel(x, k, title):
@@ -31,7 +30,6 @@ def plot_kernel(x, k, title):
     ax.set_title(title)
     ax.set_ylim(1, 0)
     plt.tight_layout()
-    plt.show(block=False)
 
 # Plot lambda(x)
 def plot_lambda(x, lambda_func, title):
@@ -43,4 +41,3 @@ def plot_lambda(x, lambda_func, title):
     plt.title(title)
     plt.grid(True)
     plt.tight_layout()
-    plt.show(block=False)
