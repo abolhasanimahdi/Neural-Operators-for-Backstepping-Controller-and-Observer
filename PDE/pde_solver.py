@@ -17,14 +17,13 @@ def solve_pde(pde, k=None):
         u[0, -1] = 0
 
     for n in range(Nt - 1):
-        u[n + 1, 1:-1] = u[n, 1:-1] + dt * (
-                (u[n, 2:] - 2 * u[n, 1:-1] + u[n, :-2]) / h ** 2
-                + lam[1:-1] * u[n, 1:-1]
-        )
+        diffusion = (u[n, 2:] - 2 * u[n, 1:-1] + u[n, :-2]) / h ** 2
+        reaction = lam[1:-1] * u[n, 1:-1]
+        u[n + 1, 1:-1] = u[n, 1:-1] + dt * (diffusion + reaction)
         u[n + 1, 0] = pde.u0t_func((n + 1) * dt)
 
         if k is not None:
             u[n + 1, -1] = compute_control(k, u[n + 1, :], h)
         else:
-            u[n + 1, -1] = 0
+            u[n + 1, -1] = pde.u1t_func((n + 1) * dt)
     return u
