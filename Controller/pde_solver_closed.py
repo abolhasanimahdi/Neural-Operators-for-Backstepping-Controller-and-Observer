@@ -1,3 +1,4 @@
+# pde_solver_closed.py
 import numpy as np
 
 def solve_pde_closed_loop(pde, k):
@@ -10,25 +11,27 @@ def solve_pde_closed_loop(pde, k):
     u = np.zeros((Nt, Nx))
     U = np.zeros(Nt)
 
-    # Initial condition
     u[0, :] = pde.ux0_func()
 
+    def get_control(current_u):
+        integrand = k[-1, :] * current_u
+        total_sum = 0.5 * integrand[0] + np.sum(integrand[1:-1]) + 0.5 * integrand[-1]
+        return h * total_sum
+
+    U[0] = get_control(u[0, :])
+    u[0, -1] = U[0]
+
     for n in range(Nt - 1):
-        u_x1 = (u[n, -1] - u[n, -2]) / h
-        integral = np.sum(k[-1, :] * u[n, :] * h)
-        U[n] = u_x1 - integral
-        u[n, 0] = pde.u0t_func(n * dt)
-        u[n, -1] = U[n]
         for i in range(1, Nx - 1):
             u[n + 1, i] = (
-                u[n, i]
-                + dt * (
-                    (u[n, i + 1] - 2 * u[n, i] + u[n, i - 1]) / h**2
-                    + lam[i] * u[n, i]
-                )
+                    u[n, i]
+                    + dt * (
+                            (u[n, i + 1] - 2 * u[n, i] + u[n, i - 1]) / h ** 2
+                            + lam[i] * u[n, i]
+                    )
             )
         u[n + 1, 0] = pde.u0t_func((n + 1) * dt)
-    u_x1 = (u[-1, -1] - u[-1, -2]) / h
-    integral = np.sum(k[-1, :] * u[-1, :] * h)
-    U[-1] = u_x1 - integral
+        U[n + 1] = get_control(u[n + 1, :])
+        u[n + 1, -1] = U[n + 1]
+
     return u, U

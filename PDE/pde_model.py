@@ -1,3 +1,4 @@
+# pde_model.py
 import numpy as np
 
 class PDE:

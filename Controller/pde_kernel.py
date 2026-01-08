@@ -1,3 +1,4 @@
+# pde_kernel.py
 import numpy as np
 
 def solve_kernel(pde):

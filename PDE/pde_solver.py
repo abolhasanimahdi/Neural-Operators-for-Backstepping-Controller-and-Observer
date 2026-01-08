@@ -1,3 +1,4 @@
+# pde_solver.py
 import numpy as np
 
 def solve_pde(pde):

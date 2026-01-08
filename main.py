@@ -1,3 +1,4 @@
+# main.py
 import numpy as np
 from PDE.pde_model import PDE
 from PDE.pde_solver import solve_pde
@@ -23,6 +24,6 @@ u2_cl, U2 = solve_pde_closed_loop(pde2, k2)
 plot_pde(pde2.x, t_grid2, u2, title=r'PDE solution $u(x,t)$ for $\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$')
 plot_kernel(pde2.x, k2, title=r'Kernel solution $k(x,y)$ for $\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$')
 plot_lambda(pde2.x, lambda_func2, title=r'$\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$')
-plot_controller(t_grid2, U2, title=r'Controller $U(t)$ for $\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$') # Plot U2
+plot_controller(t_grid2, U2, title=r'Controller $U(t)$ for $\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$')
 plot_pde(pde2.x, t_grid2, u2_cl, title=r'Controlled PDE solution $u(x,t)$ with backstepping $U(t)$')
 plt.show()
