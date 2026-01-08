@@ -14,7 +14,7 @@ def plot_pde(x, t, u, title):
     ax.set_ylabel('x')
     ax.set_zlabel('u(x,t)')
     ax.set_xlim(1.5, 0)
-    ax.view_init(elev=10, azim=100)
+    ax.view_init(elev=10, azim=110)
     ax.set_title(title)
     plt.tight_layout()
 
@@ -27,6 +27,7 @@ def plot_kernel(x, k, title):
     ax.set_xlabel('y')
     ax.set_ylabel('x')
     ax.set_zlabel('k(x,y)')
+    ax.view_init(elev=10, azim=290)
     ax.set_title(title)
     ax.set_ylim(1, 0)
     plt.tight_layout()
