@@ -43,13 +43,13 @@ def plot_lambda(x, lambda_func, title):
     plt.grid(True)
     plt.tight_layout()
 
-def plot_error_norm(t, error):
+def plot_observer_error(t, error):
     l2_norm = np.linalg.norm(error, axis=1)
     plt.figure(figsize=(7, 5))
     plt.plot(t, l2_norm, linewidth=2, color='red')
     plt.yscale('log')
     plt.xlabel('Time (t)')
     plt.ylabel(r'$||u(x,t) - \hat{u}(x,t)||_{L^2}$')
-    plt.title('Observer Error Convergence (Log Scale)')
+    plt.title('Observer Error')
     plt.grid(True, which="both", ls="-")
     plt.tight_layout()
