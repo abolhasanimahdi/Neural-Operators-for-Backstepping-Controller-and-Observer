@@ -16,7 +16,7 @@ def lambda_func2(x): return 50 * np.cos(8 * np.arccos(x))
 pde2 = PDE(lambda_func=lambda_func2)
 t_grid2 = np.linspace(0, pde2.T, pde2.Nt)
 
-# Define PDE for λ(x) = 20cos(5ccos^-1(x)) and U(t) = 10cos(2pit)+7sin(16t)
+# Define PDE for λ(x) = 20cos(5ccos^-1(x)) and U(t) = 10cos(2πt)+7sin(16t)
 def lambda_func3(x): return 20 * np.cos(5 * np.arccos(x))
 def u1t_func3(t): return 10 * np.cos(np.pi * 2 * t) + 7 * np.sin(16 * t)
 pde3 = PDE(lambda_func=lambda_func3, u1t_func=u1t_func3)
@@ -59,19 +59,19 @@ plot_pde(pde1.x, t_grid1, u1, title=r'PDE solution $u(x,t)$ for $\lambda(x)=50\c
 plot_lambda(pde2.x, lambda_func2, gamma=8, title=r'$\lambda(x)=50\cos\!\left(\gamma\cos^{-1}(x)\right)$')
 plot_pde(pde2.x, t_grid2, u2, title=r'PDE solution $u(x,t)$ for $\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$')
 
-plot_pde(pde3.x, t_grid3, u3, title=r'Open loop PDE solution $u(x,t)$ for $\lambda(x)=20\cos\!\left(8\cos^{-1}(x)\right)$ and U(t) = 10cos(2pit)+7sin(16t)')
+plot_pde(pde3.x, t_grid3, u3, title=r'Open loop PDE solution $u(x,t)$ for $\lambda(x)=20\cos\!\left(8\cos^{-1}(x)\right)$ and $U(t)=10cos(2\pi t)+7sin(16t)$')
 
 # Plot closed loop PDEs u(x,t)
-plot_kernel(pde1.x, k1, title=r'Kernel solution $k(x,y)$ for $\lambda(x)=50\cos\!\left(5\cos^{-1}(x)\right)$')
+plot_kernel(pde1.x, k1, title=[r'Kernel solution $k(x,y)$ for $\lambda(x)=50\cos\!\left(5\cos^{-1}(x)\right)$'])
 plot_pde(pde1.x, t_grid1, u1_cl, title=r'Closed loop PDE solution $u(x,t)$ for $\lambda(x)=50\cos\!\left(5\cos^{-1}(x)\right)$')
 
-plot_kernel(pde2.x, k2, title=r'Kernel solution $k(x,y)$ for $\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$')
+plot_kernel(pde2.x, k2, title=[r'Kernel solution $k(x,y)$ for $\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$'])
 plot_pde(pde2.x, t_grid2, u2_cl, title=r'Closed loop PDE solution $u(x,t)$ for $\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$')
 
 plot_pde(pde4.x, t_grid4, u4_cl, title=r'Closed loop PDE solution $u(x,t)$ for $\lambda(x)=20\cos\!\left(8\cos^{-1}(x)\right)$')
 
 # Plot observed PDE u_hat(x,t)
-plot_pde(pde3.x, t_grid3, u3_hat, title=r'Open loop observed PDE solution $u(x,t)$ for $\lambda(x)=20\cos\!\left(8\cos^{-1}(x)\right)$ and U(t) = 10cos(2pit)+7sin(16t)')
+plot_pde(pde3.x, t_grid3, u3_hat, title=r'Open loop observed PDE solution $u(x,t)$ for $\lambda(x)=20\cos\!\left(8\cos^{-1}(x)\right)$ and $U(t)=10cos(2\pi t)+7sin(16t)$')
 plot_observer_error(t_grid3, error3)
 
 # Plot close loop observed PDE u_hat(x,t)

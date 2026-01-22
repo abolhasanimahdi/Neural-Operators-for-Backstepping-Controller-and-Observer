@@ -15,21 +15,28 @@ def plot_pde(x, t, u, title):
     ax.set_zlabel('u(x,t)')
     ax.set_xlim(3, 0)
     ax.view_init(elev=10, azim=110)
-    ax.set_title(title)
+    ax.set_title(title, y=1)
     plt.tight_layout()
 
 # Plot kernel solution k(x,y)
-def plot_kernel(x, k, title):
-    X, Y = np.meshgrid(x, x)
-    fig = plt.figure(figsize=(7, 5))
-    ax = fig.add_subplot(111, projection='3d')
-    ax.plot_surface(Y, X, k)
-    ax.set_xlabel('y')
-    ax.set_ylabel('x')
-    ax.set_zlabel('k(x,y)')
-    ax.view_init(elev=10, azim=290)
-    ax.set_title(title)
-    ax.set_ylim(1, 0)
+def plot_kernel(x, kernel, title, cols=1):
+    if isinstance(kernel, np.ndarray) and kernel.ndim == 2:
+        kernel = [kernel]
+    else:
+        kernel = kernel
+    rows = int(np.ceil(len(kernel) / cols))
+    fig = plt.figure(figsize=(7, 5) if len(kernel) == 1 else (cols * 4.5, rows * 3))
+    for idx, k in enumerate(kernel):
+        ax = fig.add_subplot(rows, cols, idx + 1, projection='3d')
+        X, Y = np.meshgrid(x, x)
+        ax.plot_surface(Y, X, k)
+        ax.set_xlabel('y')
+        ax.set_ylabel('x')
+        ax.set_zlabel('k(x,y)')
+        ax.set_title(title[idx], y=1, fontsize=12 if len(kernel) == 1 else 10)
+        ax.view_init(elev=10, azim=290)
+        ax.set_ylim(1, 0)
+        ax.set_xlim(0, 1)
     plt.tight_layout()
 
 # Plot λ(x)
@@ -44,9 +51,10 @@ def plot_lambda(x, lambda_func, gamma, title):
             plt.plot(x, lambda_func[i], label=f"γ = {gamma[i]:.2f}")
     plt.xlabel('x')
     plt.ylabel(r'$\lambda(x)$')
-    plt.title(title)
+    plt.title(title, y=1)
     plt.grid(True)
     plt.legend()
+    plt.xlim(0, 1)
     plt.tight_layout()
 
 def plot_observer_error(t, error):
@@ -56,6 +64,6 @@ def plot_observer_error(t, error):
     plt.yscale('log')
     plt.xlabel('Time (t)')
     plt.ylabel(r'$||u(x,t) - \hat{u}(x,t)||_{L^2}$')
-    plt.title('Observer Error')
+    plt.title('Observer Error', y=1)
     plt.grid(True, which="both", ls="-")
     plt.tight_layout()
