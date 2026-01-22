@@ -53,10 +53,10 @@ _, u4_hat = solve_pde(pde4, u_hatx0=20, k=k4, l=k4[-1, :])
 error4 = u4_cl - u4_hat
 
 # Plot open loop PDEs u(x,t)
-plot_lambda(pde1.x, lambda_func1, title=r'$\lambda(x)=50\cos\!\left(5\cos^{-1}(x)\right)$')
+plot_lambda(pde1.x, lambda_func1, gamma=5, title=r'$\lambda(x)=50\cos\!\left(\gamma\cos^{-1}(x)\right)$')
 plot_pde(pde1.x, t_grid1, u1, title=r'PDE solution $u(x,t)$ for $\lambda(x)=50\cos\!\left(5\cos^{-1}(x)\right)$')
 
-plot_lambda(pde2.x, lambda_func2, title=r'$\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$')
+plot_lambda(pde2.x, lambda_func2, gamma=8, title=r'$\lambda(x)=50\cos\!\left(\gamma\cos^{-1}(x)\right)$')
 plot_pde(pde2.x, t_grid2, u2, title=r'PDE solution $u(x,t)$ for $\lambda(x)=50\cos\!\left(8\cos^{-1}(x)\right)$')
 
 plot_pde(pde3.x, t_grid3, u3, title=r'Open loop PDE solution $u(x,t)$ for $\lambda(x)=20\cos\!\left(8\cos^{-1}(x)\right)$ and U(t) = 10cos(2pit)+7sin(16t)')

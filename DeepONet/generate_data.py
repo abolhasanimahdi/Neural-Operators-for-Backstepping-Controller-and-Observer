@@ -12,5 +12,5 @@ def generate_lambda_dataset(amplitude=50, n_samples=1000, nx=101, gamma_min=4, g
     return x, lambdas, gammas
 
 x, lambdas, gammas = generate_lambda_dataset(n_samples=5, nx=200)
-plot_lambda(x, lambdas[3])
+plot_lambda(x, lambdas, gammas, title=r'$\lambda(x)=50\cos\!\left(\gamma\cos^{-1}(x)\right)$')
 plt.show()

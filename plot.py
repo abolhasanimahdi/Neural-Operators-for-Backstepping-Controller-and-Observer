@@ -33,14 +33,20 @@ def plot_kernel(x, k, title):
     plt.tight_layout()
 
 # Plot λ(x)
-def plot_lambda(x, lambda_func, title):
-    y = lambda_func(x)
+def plot_lambda(x, lambda_func, gamma, title):
+    if callable(lambda_func):
+        lambda_func = lambda_func(x)
     plt.figure(figsize=(7, 5))
-    plt.plot(x, y)
+    if lambda_func.ndim == 1:
+        plt.plot(x, lambda_func, label=f"γ = {gamma:.2f}")
+    elif lambda_func.ndim == 2:
+        for i in range(lambda_func.shape[0]):
+            plt.plot(x, lambda_func[i], label=f"γ = {gamma[i]:.2f}")
     plt.xlabel('x')
     plt.ylabel(r'$\lambda(x)$')
     plt.title(title)
     plt.grid(True)
+    plt.legend()
     plt.tight_layout()
 
 def plot_observer_error(t, error):
