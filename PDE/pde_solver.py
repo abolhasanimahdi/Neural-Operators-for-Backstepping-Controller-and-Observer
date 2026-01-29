@@ -1,3 +1,4 @@
+# pde_solver.py
 import numpy as np
 from PDE.pde_controller import compute_control
 

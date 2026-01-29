@@ -1,8 +1,6 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from PDE.pde_model import PDE
 from PDE.pde_controller import solve_kernel
-from plot import plot_kernel, plot_lambda
 
 def generate_lambda_dataset(amplitude=50, n_samples=1000, nx=101, gamma_min=4, gamma_max=9, seed=5):
     rng = np.random.default_rng(seed)
@@ -23,10 +21,3 @@ def generate_kernel_dataset(lambda_dataset):
         k = solve_kernel(pde)
         kernel_dataset.append(k)
     return np.array(kernel_dataset)
-
-x, lambda_dataset, gammas = generate_lambda_dataset(n_samples=6, nx=200)
-kernel_dataset = generate_kernel_dataset(lambda_dataset)
-
-plot_lambda(x, lambda_dataset, gammas, title=r'$\lambda(x)=50\cos\!\left(\gamma\cos^{-1}(x)\right)$')
-plot_kernel(x, kernel_dataset, title=[rf"Kernel solution $k(x,y)$ for $\lambda(x)=50\cos\!\left({g:.2f}\cos^{{-1}}(x)\right)$" for g in gammas], cols=3)
-plt.show()

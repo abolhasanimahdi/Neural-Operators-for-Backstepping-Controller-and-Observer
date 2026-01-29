@@ -5,6 +5,7 @@ from PDE.pde_solver import solve_pde
 from PDE.pde_controller import solve_kernel
 from plot import plot_pde, plot_kernel, plot_lambda, plot_observer_error
 import matplotlib.pyplot as plt
+from DeepONet.generate_data import generate_lambda_dataset, generate_kernel_dataset
 
 # Define PDE for λ(x) = 50cos(5ccos^-1(x))
 def lambda_func1(x): return 50 * np.cos(5 * np.arccos(x))
@@ -52,6 +53,10 @@ error3= u3 - u3_hat
 _, u4_hat = solve_pde(pde4, u_hatx0=20, k=k4, l=k4[-1, :])
 error4 = u4_cl - u4_hat
 
+# Sample dataset
+x, lambda_dataset, gammas = generate_lambda_dataset(n_samples=6, nx=200)
+kernel_dataset = generate_kernel_dataset(lambda_dataset)
+
 # Plot open loop PDEs u(x,t)
 plot_lambda(x=pde1.x, lambda_func=np.vstack([lambda_func1(pde1.x), lambda_func2(pde2.x)]), gamma=np.array([5, 8]), title=r'$\lambda(x)=50\cos\!\left(\gamma\cos^{-1}(x)\right)$')
 
@@ -73,5 +78,9 @@ plot_observer_error(t_grid3, error3, title=r'Closed loop observed error $\|e(t)\
 # Plot close loop observed PDE u_hat(x,t)
 plot_pde(pde4.x, t_grid4, u4_hat, title=r'Closed loop observed PDE solution $u(x,t)$ for $\lambda(x)=20\cos\!\left(8\cos^{-1}(x)\right)$')
 plot_observer_error(t_grid4, error4, title=r'Closed loop observed error $\|e(t)\|_2$ for $\lambda(x)=20\cos\!\left(8\cos^{-1}(x)\right)$')
+
+# Plot sample dataset
+plot_lambda(x, lambda_dataset, gammas, title=r'$\lambda(x)=50\cos\!\left(\gamma\cos^{-1}(x)\right)$')
+plot_kernel(x, kernel_dataset, title=[rf"Kernel solution $k(x,y)$ for $\lambda(x)=50\cos\!\left({g:.2f}\cos^{{-1}}(x)\right)$" for g in gammas], cols=3)
 
 plt.show()
