@@ -75,12 +75,14 @@ def plot_lambda(x, lambda_func, gamma, title):
 
 def plot_observer_error(t, error, title):
     l2_norm = np.linalg.norm(error, axis=1)
-    plt.figure(figsize=(7, 5))
+    plt.figure(figsize=(4, 3))
     plt.plot(t, l2_norm, linewidth=2, color='red')
     plt.yscale('log')
-    plt.xlabel('Time (t)')
+    plt.xlabel(r'$t$', fontsize=10)
+    plt.xticks(fontsize=9)
+    plt.yticks(fontsize=9)
     plt.ylabel(r'$||u(x,t) - \hat{u}(x,t)||_{L^2}$')
     plt.title('Observer Error', y=1)
-    plt.title(title, y=1)
+    plt.title(title, y=1.03, fontsize=10)
     plt.grid(True, which="both", ls="-")
     plt.tight_layout()
