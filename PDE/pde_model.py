@@ -10,6 +10,7 @@ class PDE:
         self.Nt = int(T / dt)
         self.h = 1 / N
         self.x = np.linspace(0, 1, self.Nx)
+        self.t = np.linspace(0, self.T, self.Nt)
         # λ(x)
         if lambda_func is None:
             def lambda_default(x): return 50 * np.cos(5 * np.arccos(x))
