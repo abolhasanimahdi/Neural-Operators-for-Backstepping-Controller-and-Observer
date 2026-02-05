@@ -33,7 +33,10 @@ def load_deeponet_model(nx, hidden_size, path="Operator.pth"):
     model.net.load_state_dict(checkpoint["model_state_dict"])
     return model, x, trunk_X
 
-def compute_k_hat(lambda_func, model, x, trunk_X, nx):
+def compute_k_hat(lambda_func, model, nx):
+    x = np.linspace(0, 1, nx).astype(np.float32)
+    X_mesh, Y_mesh = np.meshgrid(x, x)
+    trunk_X = np.vstack([X_mesh.ravel(), Y_mesh.ravel()]).T.astype(np.float32)
     lambda_test = lambda_func(x).reshape(1, -1).astype(np.float32)
     k_hat_flat = model.predict((lambda_test, trunk_X))
     k_hat = np.tril(k_hat_flat.reshape(nx, nx))

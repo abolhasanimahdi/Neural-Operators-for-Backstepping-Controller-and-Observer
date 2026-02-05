@@ -2,13 +2,13 @@
 import numpy as np
 
 class PDE:
-    def __init__(self, N=25, T=1.5, dt=1e-5, lambda_func=None, u0t_func=None, u1t_func=None, ux0_func=None):
-        self.N = N
-        self.Nx = N + 1
+    def __init__(self, Nx=51, T=1.5, dt=1e-5, lambda_func=None, u0t_func=None, u1t_func=None, ux0_func=None):
+        self.N = Nx-1
+        self.Nx = Nx
         self.T = T
         self.dt = dt
         self.Nt = int(T / dt)
-        self.h = 1 / N
+        self.h = 1 / self.N
         self.x = np.linspace(0, 1, self.Nx)
         self.t = np.linspace(0, self.T, self.Nt)
         # λ(x)
