@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Plot PDE solution u(x,t)
-def plot_pde(x, t, u, fig_title, title, cols=1):
+def plot_pde(x, t, u, fig_title, title, z_title, cols=1):
     if isinstance(u, np.ndarray) and u.ndim == 2:
         u = [u]
     else:
@@ -19,7 +19,7 @@ def plot_pde(x, t, u, fig_title, title, cols=1):
         ax.plot(t, x1_line, current_u[:, -1], zorder=10)
         ax.set_xlabel(r'$t$', fontsize=10, labelpad=-1)
         ax.set_ylabel(r'$x$', fontsize=10, labelpad=-1)
-        ax.set_zlabel(r'$u(x,t)$', fontsize=10, labelpad=-5)
+        ax.set_zlabel(z_title[idx], fontsize=10, labelpad=-5)
         ax.xaxis.set_tick_params(labelsize=9, pad=-2)
         ax.yaxis.set_tick_params(labelsize=9, pad=-2)
         ax.zaxis.set_tick_params(labelsize=9, pad=-2)
@@ -29,7 +29,7 @@ def plot_pde(x, t, u, fig_title, title, cols=1):
     plt.tight_layout()
 
 # Plot kernel solution k(x,y)
-def plot_kernel(x, kernel, fig_title, title, cols=1):
+def plot_kernel(x, kernel, fig_title, title, z_title, cols=1):
     if isinstance(kernel, np.ndarray) and kernel.ndim == 2:
         kernel = [kernel]
     else:
@@ -43,7 +43,7 @@ def plot_kernel(x, kernel, fig_title, title, cols=1):
         ax.plot_surface(Y, X, k)
         ax.set_xlabel(r'$y$', fontsize=10, labelpad=-1)
         ax.set_ylabel(r'$x$', fontsize=10, labelpad=-1)
-        ax.set_zlabel(r'$k(x,y)$', fontsize=10, labelpad=-3)
+        ax.set_zlabel(z_title[idx], fontsize=10, labelpad=-3)
         ax.xaxis.set_tick_params(labelsize=9, pad=-2)
         ax.yaxis.set_tick_params(labelsize=9, pad=-2)
         ax.zaxis.set_tick_params(labelsize=9, pad=-2)
@@ -73,6 +73,7 @@ def plot_lambda(x, lambda_func, gamma, title):
     plt.xlim(0, 1)
     plt.tight_layout()
 
+# Plot ║e(t)║_2
 def plot_observer_error(t, error, title):
     l2_norm = np.linalg.norm(error, axis=1)
     plt.figure(figsize=(4, 3))
