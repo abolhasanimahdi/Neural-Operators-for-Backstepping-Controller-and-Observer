@@ -54,15 +54,15 @@ def plot_kernel(x, k, fig_title, title, z_title, cols=1):
     plt.tight_layout()
 
 # Plot λ(x)
-def plot_lambda(x, lambda_func, gamma, title):
-    if callable(lambda_func):
-        lambda_func = lambda_func(x)
+def plot_lambda(x, lam, gamma, title):
+    if callable(lam):
+        lam = lam(x)
     plt.figure(figsize=(4, 3))
-    if lambda_func.ndim == 1:
-        plt.plot(x, lambda_func, label=f"γ = {gamma:.2f}")
-    elif lambda_func.ndim == 2:
-        for i in range(lambda_func.shape[0]):
-            plt.plot(x, lambda_func[i], label=f"γ = {gamma[i]:.2f}")
+    if lam.ndim == 1:
+        plt.plot(x, lam, label=f"γ = {gamma:.2f}")
+    elif lam.ndim == 2:
+        for i in range(lam.shape[0]):
+            plt.plot(x, lam[i], label=f"γ = {gamma[i]:.2f}")
     plt.xlabel(r'$x$', fontsize=10)
     plt.ylabel(r'$\lambda(x)$', fontsize=10)
     plt.xticks(fontsize=9)
@@ -74,8 +74,8 @@ def plot_lambda(x, lambda_func, gamma, title):
     plt.tight_layout()
 
 # Plot ║e(t)║_2
-def plot_observer_error(t, error, title):
-    l2_norm = np.linalg.norm(error, axis=1)
+def plot_observer_error(t, e, title):
+    l2_norm = np.linalg.norm(e, axis=1)
     plt.figure(figsize=(4, 3))
     plt.plot(t, l2_norm, linewidth=2, color='red')
     plt.yscale('log')

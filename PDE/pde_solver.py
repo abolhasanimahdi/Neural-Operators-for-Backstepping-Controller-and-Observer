@@ -6,7 +6,7 @@ def solve_pde(pde, u_hatx0=10, k=None, l=None):
     nx, nt, dt = pde.nx, pde.nt, pde.dt
     x = pde.x
     h = 1 / (nx - 1)
-    lam = pde.lambda_func(x)
+    lam = pde.lam(x)
     u = np.zeros((nt, nx))
     u_hat = np.zeros((nt, nx))
     u[0, :] = pde.ux0_func(x)
