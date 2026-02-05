@@ -2,15 +2,12 @@
 import numpy as np
 
 class PDE:
-    def __init__(self, Nx=51, T=1.5, dt=1e-5, lambda_func=None, u0t_func=None, u1t_func=None, ux0_func=None):
-        self.N = Nx-1
-        self.Nx = Nx
-        self.T = T
+    def __init__(self, nx=51, T=1.5, dt=1e-5, lambda_func=None, u0t_func=None, u1t_func=None, ux0_func=None):
+        self.nx = nx
         self.dt = dt
-        self.Nt = int(T / dt)
-        self.h = 1 / self.N
-        self.x = np.linspace(0, 1, self.Nx)
-        self.t = np.linspace(0, self.T, self.Nt)
+        self.nt = int(T / dt)
+        self.x = np.linspace(0, 1, nx)
+        self.t = np.linspace(0, T, self.nt)
         # λ(x)
         if lambda_func is None:
             def lambda_default(x): return 50 * np.cos(5 * np.arccos(x))

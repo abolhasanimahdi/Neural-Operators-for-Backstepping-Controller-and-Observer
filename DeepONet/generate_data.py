@@ -17,7 +17,6 @@ def generate_kernel_dataset(lambda_dataset):
         lambda_i = lambda_dataset[i]
         def lambda_func(x, lam=lambda_i):
             return lam
-        pde = PDE(Nx=len(lambda_i), lambda_func=lambda_func)
-        k = solve_kernel(pde)
+        k = solve_kernel(lambda_func=lambda_func, nx=len(lambda_i))
         kernel_dataset.append(k)
     return np.array(kernel_dataset)

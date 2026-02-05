@@ -29,15 +29,15 @@ def plot_pde(x, t, u, fig_title, title, z_title, cols=1):
     plt.tight_layout()
 
 # Plot kernel solution k(x,y)
-def plot_kernel(x, kernel, fig_title, title, z_title, cols=1):
-    if isinstance(kernel, np.ndarray) and kernel.ndim == 2:
-        kernel = [kernel]
+def plot_kernel(x, k, fig_title, title, z_title, cols=1):
+    if isinstance(k, np.ndarray) and k.ndim == 2:
+        k = [k]
     else:
-        kernel = kernel
-    rows = int(np.ceil(len(kernel) / cols))
+        k = k
+    rows = int(np.ceil(len(k) / cols))
     fig = plt.figure(figsize=(cols * 4.5, rows * 3.5))
     fig.suptitle(fig_title, y=0.9, fontsize=12)
-    for idx, k in enumerate(kernel):
+    for idx, k in enumerate(k):
         ax = fig.add_subplot(rows, cols, idx + 1, projection='3d')
         X, Y = np.meshgrid(x, x)
         ax.plot_surface(Y, X, k)

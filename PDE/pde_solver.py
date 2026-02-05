@@ -3,18 +3,18 @@ import numpy as np
 from PDE.pde_controller import compute_control
 
 def solve_pde(pde, u_hatx0=10, k=None, l=None):
-    Nx, Nt = pde.Nx, pde.Nt
-    h, dt = pde.h, pde.dt
+    nx, nt, dt = pde.nx, pde.nt, pde.dt
     x = pde.x
+    h = 1 / (nx - 1)
     lam = pde.lambda_func(x)
-    u = np.zeros((Nt, Nx))
-    u_hat = np.zeros((Nt, Nx))
+    u = np.zeros((nt, nx))
+    u_hat = np.zeros((nt, nx))
     u[0, :] = pde.ux0_func(x)
     u_hat[0, :] = u_hatx0
-    for n in range(Nt - 1):
+    for n in range(nt - 1):
         if k is not None:
             state_for_control = u_hat[n, :] if l is not None else u[n, :]
-            U_t = compute_control(k, state_for_control, h)
+            U_t = compute_control(k, state_for_control, nx)
         else:
             U_t = pde.u1t_func(n * dt)
         diff_u = (u[n, 2:] - 2 * u[n, 1:-1] + u[n, :-2]) / h ** 2
