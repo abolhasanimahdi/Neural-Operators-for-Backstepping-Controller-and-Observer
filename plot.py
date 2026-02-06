@@ -87,3 +87,22 @@ def plot_observer_error(t, e, title):
     plt.title(title, y=1.03, fontsize=10)
     plt.grid(True, which="both", ls="-")
     plt.tight_layout()
+
+# Plot U(t)
+def plot_U(U, labels, title):
+    t = np.linspace(0, 3, 500)
+    plt.figure(figsize=(4, 3))
+    if callable(U):
+        U = [U]
+    if labels is None:
+        labels = [f"U{i+1}(t)" for i in range(len(U))]
+    for Ui, label in zip(U, labels):
+        plt.plot(t, Ui(t), label=label)
+    plt.xlabel(r"$t$", fontsize=10)
+    plt.ylabel(r"$U(t)$", fontsize=10)
+    plt.xticks(fontsize=9)
+    plt.yticks(fontsize=9)
+    plt.title(title, y=1.02, fontsize=10)
+    plt.grid(True)
+    plt.legend(fontsize=9)
+    plt.tight_layout()
