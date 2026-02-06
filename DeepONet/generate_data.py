@@ -2,7 +2,7 @@
 import numpy as np
 from PDE.pde_controller import solve_kernel
 
-def generate_lambda_dataset(amplitude=50, samples=1000, nx=101, gamma_min=4, gamma_max=9, seed=5):
+def generate_lambda_dataset(amplitude=50, samples=1000, nx=51, gamma_min=4, gamma_max=9, seed=5):
     rng = np.random.default_rng(seed)
     x = np.linspace(0, 1, nx)
     gammas = rng.uniform(gamma_min, gamma_max, size=samples)
