@@ -57,7 +57,7 @@ def plot_kernel(x, k, fig_title, title, z_title, cols=1):
 def plot_lambda(x, lam, gamma, title):
     if callable(lam):
         lam = lam(x)
-    plt.figure(figsize=(4, 3))
+    plt.figure(figsize=(3.75, 2.75))
     if lam.ndim == 1:
         plt.plot(x, lam, label=f"γ = {gamma:.2f}")
     elif lam.ndim == 2:
@@ -73,16 +73,16 @@ def plot_lambda(x, lam, gamma, title):
     plt.xlim(0, 1)
     plt.tight_layout()
 
-# Plot ║e(t)║_2
+# Plot observation error
 def plot_observer_error(t, e, title):
     l2_norm = np.linalg.norm(e, axis=1)
-    plt.figure(figsize=(4, 3))
+    plt.figure(figsize=(3.75, 2.75))
     plt.plot(t, l2_norm, linewidth=2, color='red')
     plt.yscale('log')
     plt.xlabel(r'$t$', fontsize=10)
     plt.xticks(fontsize=9)
     plt.yticks(fontsize=9)
-    plt.ylabel(r'$||u(x,t) - \hat{u}(x,t)||_{L^2}$')
+    plt.ylabel(r'$e(t)$')
     plt.title('Observer Error', y=1)
     plt.title(title, y=1.03, fontsize=10)
     plt.grid(True, which="both", ls="-")
@@ -91,7 +91,7 @@ def plot_observer_error(t, e, title):
 # Plot U(t)
 def plot_U(U, labels, title):
     t = np.linspace(0, 3, 500)
-    plt.figure(figsize=(4, 3))
+    plt.figure(figsize=(3.75, 2.75))
     if callable(U):
         U = [U]
     if labels is None:
@@ -107,6 +107,7 @@ def plot_U(U, labels, title):
     plt.legend(fontsize=7, loc='lower center')
     plt.tight_layout()
 
+# Plot learning error
 def plot_learning_error(U1, U1_hat, U2, U2_hat, nx, t):
     e1 = np.sqrt(np.sum((U1 - U1_hat)**2, axis=1) * 1/(nx-1))
     e2 = np.sqrt(np.sum((U2 - U2_hat)**2, axis=1) * 1/(nx-1))
