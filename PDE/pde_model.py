@@ -2,7 +2,7 @@
 import numpy as np
 
 class PDE:
-    def __init__(self, nx=51, T=1.5, dt=1e-5, lam=None, u0t=None, u1t=None, ux0=None):
+    def __init__(self, nx=101, T=1.5, dt=1e-5, lam=None, u0t=None, u1t=None, ux0=None):
         self.nx = nx
         self.dt = dt
         self.nt = int(T / dt)

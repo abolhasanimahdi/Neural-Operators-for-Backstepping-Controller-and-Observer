@@ -40,9 +40,8 @@ def train_operator(x, lam_dataset, k_dataset, samples, nx, trunk_layers=[8, 16, 
     trunk_net_sizes = [2] + trunk_layers
     net = dde.nn.DeepONetCartesianProd(layer_sizes_branch=[nx * nx, branch_net], layer_sizes_trunk=trunk_net_sizes, activation="relu", kernel_initializer="Glorot normal")
     model = dde.Model(dataset, net)
-    model.compile(optimizer="adam", lr=1e-3, metrics=["mean l2 relative error"], decay=("step", 4000, 0.5))
-    model.opt.param_groups[0]['weight_decay'] = 1e-4
-    model.train(iterations=iterations, display_every=100)
+    model.compile(optimizer="adam", lr=1e-3, metrics=["mean l2 relative error"])
+    model.train(iterations=iterations, display_every=50)
     return model
 
 def load_operator(nx, trunk_layers=[8, 16, 16], path="Operator.pth"):
@@ -73,6 +72,6 @@ def compute_k_hat(lam, model, nx):
 def compute_k_hats(lam_dataset, model, nx, samples):
     x = np.linspace(0, 1, nx).astype(np.float32)
     X_mesh, Y_mesh = np.meshgrid(x, x)
-    branch_input = np.stack([lam_dataset] * 51, axis=1).reshape(samples, -1).astype(np.float32)
+    branch_input = np.stack([lam_dataset] * nx, axis=1).reshape(samples, -1).astype(np.float32)
     trunk_input = np.vstack([X_mesh.ravel(), Y_mesh.ravel()]).T.astype(np.float32)
     _ = model.predict((branch_input, trunk_input))
