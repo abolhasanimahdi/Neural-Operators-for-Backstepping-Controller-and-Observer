@@ -14,7 +14,7 @@ def train_operator(x, lam_dataset, k_dataset, samples, nx, branch_layers=[16, 8]
     branch_net_sizes = [nx * nx] + branch_layers + [p]
     net = dde.nn.DeepONetCartesianProd(layer_sizes_branch=branch_net_sizes, layer_sizes_trunk=trunk_net_sizes, activation="relu", kernel_initializer="Glorot normal")
     model = dde.Model(dataset, net)
-    model.compile(optimizer="adam", lr=1e-3, metrics=["mean l2 relative error"], decay=("step", 1500, 0.9))
+    model.compile(optimizer="adam", lr=1e-3, metrics=["mean l2 relative error"], decay=("step", 1000, 0.9))
     model.train(iterations=iterations, display_every=100)
     return model
 
